@@ -1,4 +1,174 @@
-trello-exercise
-===============
+# Trello Coding Challenge
 
-Trello Coding Challenge
+### Hooray!
+
+To apply for this position, you'll need to complete a small (hopefully fun) coding challenge.  
+
+The answer will be a short string of characters to include as the first word of the subject when you email jobs@fogcreek.com.
+
+Please make sure to include
+
+- Your cover letter (as the body of the email)
+- Your resume (as an attachment, preferably a PDF)
+- The code that you used to solve the coding challenge (as an attachment)
+
+### Coding Challenge:
+
+```
+For the following 3200 character string (ignoring newlines):
+
+hpevfwqjmjryhemuqjoiatpjmddxdjwzskdcfgdtbmkbcxrnmjuoyddnqwluimjwvguxehszxzvbmufq
+lrepncxxbrrzxnzmkoyhrjcstvfazyhrhgssximjdfcmdjusylfkwbedyrsxovrmvjzaljfjmywpfnjg
+isoqbdyspgzlcmdjmhbpxhzvvhckidzuwzkauffsujmcrhvgeqvasjakgtzlxkthjqwxypmsovjbfshr
+rxtdvkmbyhejoeydnrdowuwhgmbvxmpixyttglsjgmcoqbberssfjraaqfrkmebsozsjfnubhktbbai_
+vxbifbofyednnutmxtisvfsktbqfijfzdjoqybuohtztysqelaqyixyaiolbgwylwfisfwubivuoablx
+smrqggedwyiqvseevwbcxcfjttdbweedcjgnsorizflsjtmltcoaynsrsupavqwcyzhgiplwkohlhrai
+nazaacvuqblpbzimgoxirejbshnbmdtgsbvlhpnugggencjaczqqiwixrwiyobmlkbwdlwcioqmjhoac
+dvcqdypxeichmgywocbcafumthdqrbjnpgnnmaasxiaxxfymcyiuqduztqneodstbcnjpeebgxgosoyd
+vpzlqjuroebbehafsemanwprhwkircuhlgcftqsjdusrqetbthxclfokpdlspxzuvhxpbeqqbfpqffsg
+yilqltfxrmtimcugytazkerhcfnirtavcnmfdyictlncwttkmxyfhgejygfefqrjknuqsfldmjmwjdfq
+sicfrzbfazchdgznekwmhridelcejnkmcgmpgtihbwmplrtrrefoyhyzxpjjlkabbbgspeokzhpjxsvp
+fjmdsoripvfrgyzxodoeirwwdaofdmwqrqyvdijlfqyzfspdoyrhewxbpufdqcpqdolkmrnvedixzpfd
+akggkslxcrjbrmnynviihbkzaqqffkkcgwjbettexhlwlasdfjnslwsmnclhafvebxxfdozsjtdvobik
+rrsuysujwliobagobxmlyxjeltwzwxpyrnkdxfemotfncyriaycyfemygjmpboocgtsvttqntegvleyn
+wgpjhyyysbltoxljsascsngbgfqmpzgpejzlmdkjzzlfxvagyrasmpzqntgqsvyqjugkhbrbkiqewlyf
+tvsq_______znp_____xkwt______wef______tz______kfc_______ha_______pn__lmg__iakrbt
+iyfi__uojrxvx__tps__fp__pfpndbi__ggpalde__wmd__kn__ifiadob__hdljdbd__zl__whlwilt
+bcmt__haagmjg__dwx__oh__utnzudq__xstxxyc__vly__mr__viilzav__swosyvc__i__hnaqxyev
+jykc__wyfoyir__ewp__ij__mrdavxl__tcdtxqy__fnr__cf__mrkepwj__djhrsau____lhefqxgmu
+zdgf______tjg__fip__mi__b____xc__vjvhpqy______vff_____wuup_____kqct___htiggvvpet
+yvco__pqbrlox__ayj__af__dnn__kx__mlitytx____jauna__kncmiym__dlwushk____gjptzccgc
+nntt__hfqyxzi__eqn__vz__hlh__we__dtfkfvf__g__litm__zeqjtdl__bkdapxs__o__oxeouwer
+bfjr__ipcqmop__kec__ip__icc__ci__vpxxueu__eq__sau__nhheydy__efqkdgq__us__pzlndhk
+hdmk__cmfvzwcb_____xdka______trj______yj__xpi__he_______nb_______by__rrn__tvxvig
+jfpseyjjbrrtsfnmbrokdqtfzhhdtbhtvpiyshmvcqaypfxcvbgvbvwrkanjfcsjnanmktkwimnvynuk
+cmgtqmovkrdmfuduqvbqydagsttictcnsrhfrpoebcehdzhjamykqpjtktufcvokljjijjsrivyhxtgw
+ojgoujyhmekzsoczwlqnruwcuhudgfaijzrkewzgjvorsmabpcdmurctwjrddcnkmfvabjwlbqssihdy
+bgfqchqdvjcsdllrlwmyikuvthguzfbgocaeqktvbcapzdcfjphqnhundtljqjeyfrkjspfvghqddxwx
+idtjjkctrkfcjmdpqyvavqbntpmkkuswfgbgalrysjfnzezjjscahoodjjelavydefzjmhsqfufsexlv
+vzziymsyqrcvhsrxjnysioswvjlqdbnwgyjlanmhzkbygkptycdoifsibytbrixggjeiepaybzxhvfsy
+ayeptgpxbhhfkkpromhjykfxnujorlzcmkcmvvgmveyfkgiwgosznfpmbhixsakxfkuxhwcgularehpa
+guquulrjllxmkfzgnchrxzcfdklytpfnezergkwkhgalqlvdhkdgulgfaxtybqttcjtlgmfwaymaxlwa
+spyrboibwkzzbtgigyswbtpwxgphcmkfpmvbfjimnxctinqssshofhlvlpqcwiuacjyxyqmvaibezofv
+atyhpqvjubgcwqeoytloypjphoxeimumuvswxkgamodoxiciwmgxvsenkgdhttzlenjbszrksopicjcj
+nvsosrapkfilwsaoptdavlfglioqpwoqskbgikksnnuzvmxyrtrbjouvgokxgbnwxnivtykvhjkaydsk
+zoowbhjrlojgeecdoggqqtomcdgrjzmlkhubyaewwtrlyutsptdrrigopueicoganyasrjeaiivzairu
+lklovyrpckwpowprxtvhaeivpudfchxbwvtosmivpcsesbzpsynxitlisuifuehceonjeydljzuzpsgj
+llcywoxbblitscquxiykcjxhsgkbhfhfrshsrpyrcaetahuwbeybvlvkthxydkapxlfikdwudjkmjjsa
+zajxpuikiqwsifhldfovqoycwmtlmcaycirhcehxnpfadrgyaogpcmomcgtmacnvbwfnimaqqvxijcbp
+mckwimloiinindfuakqjmpyjisxnbybtywhymnkdoyiphijzelmrazplgfcmcsjiovxqdxmuqulzklgx
+
+1.  Find the pair of identical characters that are farthest apart, and contain
+    no pairs of identical characters between them.  (e.g. for \"abcbba\" the 
+    chosen characters should be the first and last b)
+
+    In the event of a tie, choose the left-most pair (e.g. for \"aabcbded\" the
+    chosen characters should be the first and second \"b\")
+
+2.  Remove one of the characters in the pair, and move the other to the end of
+    the string.  (e.g. for \"abcbba\" you'd end up with \"acbab\")
+    
+    3.  Repeat steps 1 and 2 until no repeated characters remain
+
+4.  If the resulting string contains an underscore, remove it and any 
+    characters after it (e.g. \"abc_def\" would become \"abc\")
+    
+    5.  The remaining string is the answer.    
+
+For example, for the input \"daccadfghd_i\" the answer is \"fgh\"
+
+    daccadfghd_i
+         X   |   # Remove one d, move the other to the end
+             `v  
+    daccafgh_id
+      X|         # Remove one c, move the other to the end 
+       `-----v
+    daafgh_idc
+     X|
+      `-----v
+    dfgh_idca
+    X     |
+          `v
+    fgh_icad
+       XXXXX    # Remove everything after and including the _
+       
+    fgh
+    
+    Other examples:
+
+abacbcbefge
+aaccbefgeb
+aaccbfgbe
+aaccfgeb
+ccfgeba
+fgebac      # No underscore, so nothing is removed
+
+_a_abda_    # a_abda is the longest match; _abd are all unique
+__abd_a     # __abd_ is the longest match; _abd are all unique
+_abda_      
+_bd_a
+bda_
+bda         #Remove underscore and everything after it
+
+
+ttvmswxjzdgzqxotby_lslonwqaipchgqdo_yz_fqdagixyrobdjtnl_jqzpptzfcdcjjcpjjnnvopmh
+ttvmswxjzdgzqxotby_lslonwqaipchgqdo_z_fqdagixrobdjtnl_jqzpptzfcdcjjcpjjnnvopmhy
+ttvmswxjzdgzqxotby_lslonwqaipchgqdo_z_fqagixrobjtnl_jqzpptzfcdcjjcpjjnnvopmhyd
+ttvmswxjzdgzqxotby_lslonwqaipchgqdoz_fqagixrobjtnljqzpptzfcdcjjcpjjnnvopmhyd_
+ttvmswxjzdgzqxotby_lslonwaipchgqdoz_fagixrobjtnljqzpptzfcdcjjcpjjnnvopmhyd_q
+ttvmswxjzdgzqxotby_lslonwipchgqdoz_fgixrobjtnljqzpptzfcdcjjcpjjnnvopmhyd_qa
+ttvmswxjzdgzqxotby_lslnwipchgqdz_fgixrobjtnljqzpptzfcdcjjcpjjnnvopmhyd_qao
+ttvmswxjzdgzqxotby_lslnwipchgqdz_fgixrobjtnljqzpptzfcdcjjcpjjnnvpmhyd_qao
+ttvmswxjzdgzqxotby_lslnwipchqdz_fixrobjtnljqzpptzfcdcjjcpjjnnvpmhyd_qaog
+ttvmswxjzdgzqxotby_lslnwpchqdz_fxrobjtnljqzpptzfcdcjjcpjjnnvpmhyd_qaogi
+ttvmswxjzdgzqxotby_lslwpchqdz_fxrobjtljqzpptzfcdcjjcpjjnnvpmhyd_qaogin
+ttvmswxjzdgzqxotby_slwpchqdz_fxrobjtjqzpptzfcdcjjcpjjnnvpmhyd_qaoginl
+ttvmswxjzdgzqxotby_slwpchqdz_fxrobjtjqzpptzfcdcjjcpjjnvpmhyd_qaogiln
+ttvmswxjzdgzqxotby_slwpchqdz_fxrobjtjqzpptzfcdcjjcpjjvpmhyd_qaogiln
+ttvmswxjzdgzxotby_slwpchdz_fxrobjtjqzpptzfcdcjjcpjjvpmhyd_qaogilnq
+ttvmswxjzgzxotby_slwpchz_fxrobjtjqzpptzfcdcjjcpjjvpmhyd_qaogilnqd
+ttvmswxjgzxotby_slwpch_fxrobjtjqzpptzfcdcjjcpjjvpmhyd_qaogilnqdz
+ttvmswxjgzxotbyslwpchfxrobjtjqzpptzfcdcjjcpjjvpmhyd_qaogilnqdz_
+ttvmswjgzxotbyslwpchfrobjtjqzpptzfcdcjjcpjjvpmhyd_qaogilnqdz_x
+ttvmswjgzxtbyslwpchfrbjtjqzpptzfcdcjjcpjjvpmhyd_qaogilnqdz_xo
+tvmswjgzxbyslwpchfrbjtjqzpptzfcdcjjcpjjvpmhyd_qaogilnqdz_xot
+tvmswjgzxyslwpchfrjtjqzpptzfcdcjjcpjjvpmhyd_qaogilnqdz_xotb
+tvmswgzxyslwpchfrjtqzpptzfcdcjjcpjjvpmhyd_qaogilnqdz_xotbj
+tvmswgxyslwpchfrjtqpptzfcdcjjcpjjvpmhyd_qaogilnqdz_xotbjz
+tvmswgxyslwpchfrjtqpptzfcdcjjcpjjvpmhyd_qagilnqdz_xtbjzo
+tvmswgxyslwchfrjtqptzfcdcjjcpjjvpmhyd_qagilnqdz_xtbjzop
+tvmsgxyslchfrjtqptzfcdcjjcpjjvpmhyd_qagilnqdz_xtbjzopw
+tvmsgxyslchfrjtqptzfcdcjjcpjjvpmhyd_agilndz_xtbjzopwq
+tvmsgxyslchfrjtqptzfcdcjjcpjjvpmhydagilndzxtbjzopwq_
+tvmsgxyslchfrjtqptzfcdcjjcpjjvpmhyagilnzxtbjzopwq_d
+tvmsgxyslchfrjtqptzfcdcjjcpjvpmhyagilnzxtbzopwq_dj
+tvmgxylchfrjtqptzfcdcjjcpjvpmhyagilnzxtbzopwq_djs
+vmgxylchfrjtqpzfcdcjjcpjvpmhyagilnzxtbzopwq_djst
+vmgxylchfrjtqpzfcdcjjcpjvpmhyagilnzxbzopwq_djst
+vmgxylchrjtqpzcdcjjcpjvpmhyagilnzxbzopwq_djstf
+vmgxylhrjtqpzcdjjcpjvpmhyagilnzxbzopwq_djstfc
+vmgxylhrtqpzcdjcpjvpmhyagilnzxbzopwq_djstfcj
+vmgxylhrtqpzcdjcpjvpmhyagilnzxbzopwq_dstfcj
+vmgxylhrtqpzdjpjvpmhyagilnzxbzopwq_dstfcjc
+vmgxylhrtqzdjjvpmhyagilnzxbzopwq_dstfcjcp
+vmgxylhrtqzdjjvpmhyagilnxbopwq_dstfcjcpz
+vmgxylhrtqzdjjvmhyagilnxbowq_dstfcjcpzp
+vmgxylhrtqzdjvmhyagilnxbowq_dstfccpzpj
+vmgxylhrtzdjvmhyagilnxbow_dstfccpzpjq
+vmgxylhrtzjvmhyagilnxbow_stfccpzpjqd
+vmgxylhrzjvmhyagilnxbow_sfccpzpjqdt
+mgxylhrzjmhyagilnxbow_sfccpzpjqdtv
+gxylhrzjhyagilnxbow_sfccpzpjqdtvm
+gxylrzjyagilnxbow_sfccpzpjqdtvmh
+gxyrzjyaginxbow_sfccpzpjqdtvmhl
+gxrzjaginxbow_sfccpzpjqdtvmhly
+grzjaginbow_sfccpzpjqdtvmhlyx
+rzjainbow_sfccpzpjqdtvmhlyxg
+rzjainbow_sfcczjqdtvmhlyxgp
+rzjainbow_sfzjqdtvmhlyxgpc
+rjainbow_sfjqdtvmhlyxgpcz
+rainbow_sfqdtvmhlyxgpczj
+rainbow
+```
+
+Good luck!  We look forward to receiving your application :)
