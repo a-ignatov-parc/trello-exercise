@@ -1,49 +1,36 @@
 (function(window) {
 	var Parser = function(string) {
-		this._string = string;
-		this._chars = [];
-		this._pairs = [];
-		this._endCharList = [];
-
-		prepareString.call(this);
+		this.string = string;
 		this.process();
 	};
 
-	function prepareString() {
-		this._chars = this._string.split('');
+	function prepareString(string) {
+		return string.split('');
 	}
 
 	function sortByFarthest(pairs) {
-		pairs.sort(function(a, b) {
-			return b.distance - a.distance;
+		var distanceSorting = 0;
+
+		return pairs.sort(function(a, b) {
+			distanceSorting = b.distance - a.distance;
+			return distanceSorting + (!distanceSorting ? a.positions[0] - b.positions[0] : 0);
 		});
-		return pairs;
-	}
-
-	function processFarthestList(list) {
-		for (var i = 0, length = list.length; i < length; i++) {
-			processChar.call(this, list[i], list);
-		}
-	}
-
-	function processChar(char, list) {
-		console.log(char);
 	}
 
 	function updateDistance(char) {
 		char.distance = char.positions[char.positions.length - 1] - char.positions[0];
 	}
 
-	function findCharWithNormalPositionsLength(list, char) {
+	function findCharWithNormalPositionsLength(list, symbol) {
 		for (var i = 0, length = list.length; i < length; i++) {
-			if (list[i].symbol === char && list[i].positions.length < 3) {
+			if (list[i].symbol === symbol && list[i].positions.length < 3 && !list[i].sealed) {
 				return list[i];
 			}
 		}
 	}
 
 	function checkInterseptions(list, char, end) {
-		if (char.positions.length <= 1) {
+		if (char == null || char.positions.length < 1) {
 			return false;
 		}
 
@@ -55,27 +42,71 @@
 		return false;
 	}
 
-	Parser.prototype = {
-		process: function() {
-			console.log('Starting processing for: ' + this._string);
+	function createPairs(list) {
+		var pairs = [];
 
-			for (var i = 0, length = this._chars.length; i < length; i++) {
-				var char = this._chars[i],
-					existingChar = findCharWithNormalPositionsLength(this._pairs, char);
+		for (var i = 0, length = list.length; i < length; i++) {
+			var symbol = list[i],
+				existingChar = findCharWithNormalPositionsLength(pairs, symbol),
+				hasInterseption = checkInterseptions(pairs, existingChar, i);
 
-				if (!existingChar || checkInterseptions(this._pairs, existingChar || char, i)) {
-					this._pairs.push({
+			if (hasInterseption && existingChar) {
+				existingChar.sealed = true;
+			}
+
+			if (typeof(symbol) === 'string') {
+				if (!existingChar || hasInterseption) {
+					pairs.push({
 						distance: 0,
-						symbol: char,
-						positions: [i]
+						symbol: symbol,
+						positions: [i],
+						sealed: false
 					});
 				} else {
 					existingChar.positions.push(i);
 					updateDistance(existingChar);
 				}
 			}
-			console.log(1, this._pairs);
-			processFarthestList.call(this, sortByFarthest.call(this, this._pairs));
+		}
+		return pairs;
+	}
+
+	Parser.prototype = {
+		process: function() {
+			var chars = prepareString(this.string),
+				char,
+				pairs,
+				sortedPairs,
+				processedString,
+				underscoreIndex;
+
+			console.log('Starting processing for: ' + this.string);
+
+			for (var processNext = true; processNext;) {
+				pairs = createPairs(chars);
+				sortedPairs = sortByFarthest.call(this, pairs);
+				char = sortedPairs[0];
+
+				if (char.distance) {
+					positions = [char.positions[0], char.positions[char.positions.length - 1]];
+					chars.push(chars[positions[1]]);
+					chars.splice(positions[1], 1);
+					chars.splice(positions[0], 1);
+					processNext = true;
+					// console.log(char, positions, chars.join(''));
+				} else {
+					processNext = false;
+				}
+			}
+			processedString = chars.join('');
+			underscoreIndex = processedString.indexOf('_');
+
+			if (underscoreIndex >= 0) {
+				processedString = processedString.substr(0, underscoreIndex);
+			}
+
+			console.log('Processing result: ' + processedString);
+			console.log('-----');
 		}
 	};
 
