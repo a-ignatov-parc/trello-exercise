@@ -21,7 +21,7 @@
 		char.distance = char.positions[char.positions.length - 1] - char.positions[0];
 	}
 
-	function findCharWithNormalPositionsLength(list, symbol) {
+	function findSuitableChar(list, symbol) {
 		for (var i = 0, length = list.length; i < length; i++) {
 			if (list[i].symbol === symbol && list[i].positions.length < 3 && !list[i].sealed) {
 				return list[i];
@@ -29,43 +29,51 @@
 		}
 	}
 
-	function checkInterseptions(list, char, end) {
-		if (char == null || char.positions.length < 1) {
+	function checkInterseptions(list, char, start, end) {
+		if (char == null && (start == null || end == null) || char != null && char.positions.length < 1) {
 			return false;
 		}
 
-		for (var i = 0, length = list.length; i < length; i++) {
-			if (list[i] !== char && list[i].positions.length > 1 && list[i].positions[0] > char.positions[0] && (list[i].positions[2] != null ? list[i].positions[2] < end : false || list[i].positions[1] < end)) {
-				return true;
+		for (var i = 0, length = list.length, item; i < length; i++) {
+			item = list[i];
+
+			if (item !== char && item.positions[0] > start) {
+				if (item.positions[2] != null && item.positions[2] < end || item.positions[1] < end) {
+					return true;
+				}
 			}
 		}
 		return false;
 	}
 
 	function createPairs(list) {
-		var pairs = [];
+		var pairs = [],
+			singleChars = {};
 
 		for (var i = 0, length = list.length; i < length; i++) {
 			var symbol = list[i],
-				existingChar = findCharWithNormalPositionsLength(pairs, symbol),
-				hasInterseption = checkInterseptions(pairs, existingChar, i);
+				existingChar = findSuitableChar(pairs, symbol),
+				hasInterseption = checkInterseptions(pairs, existingChar, existingChar ? existingChar.positions[0] : singleChars[symbol], i),
+				char;
 
 			if (hasInterseption && existingChar) {
 				existingChar.sealed = true;
 			}
 
-			if (typeof(symbol) === 'string') {
-				if (!existingChar || hasInterseption) {
-					pairs.push({
-						distance: 0,
-						symbol: symbol,
-						positions: [i],
-						sealed: false
-					});
-				} else {
-					existingChar.positions.push(i);
-					updateDistance(existingChar);
-				}
+			if (!existingChar && singleChars[symbol] == null || hasInterseption) {
+				singleChars[symbol] = i;
+			} else if (!existingChar && singleChars[symbol] != null) {
+				pairs.push(char = {
+					distance: 0,
+					symbol: symbol,
+					positions: [singleChars[symbol], i],
+					sealed: false
+				});
+				updateDistance(char);
+				singleChars[symbol] = null;
+			} else {
+				existingChar.positions.push(i);
+				updateDistance(existingChar);
 			}
 		}
 		return pairs;
@@ -87,7 +95,7 @@
 				sortedPairs = sortByFarthest.call(this, pairs);
 				char = sortedPairs[0];
 
-				if (char.distance) {
+				if (char) {
 					positions = [char.positions[0], char.positions[char.positions.length - 1]];
 					chars.push(chars[positions[1]]);
 					chars.splice(positions[1], 1);
