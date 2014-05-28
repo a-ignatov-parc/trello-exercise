@@ -1,5 +1,6 @@
 (function(window) {
 	var Parser = function(string) {
+		this.perf = new window.Perf();
 		this.string = string;
 		this.process();
 	};
@@ -45,6 +46,8 @@
 	function createPairs(list) {
 		var pairs = [];
 
+		this.perf.start();
+
 		for (var i = 0, length = list.length; i < length; i++) {
 			var symbol = list[i],
 				existingChar = findCharWithNormalPositionsLength(pairs, symbol),
@@ -68,6 +71,7 @@
 				}
 			}
 		}
+		console.log('Pairs created in: ' + this.perf.end() + 'ms');
 		return pairs;
 	}
 
@@ -83,7 +87,7 @@
 			console.log('Starting processing for: ' + this.string);
 
 			for (var processNext = true; processNext;) {
-				pairs = createPairs(chars);
+				pairs = createPairs.call(this, chars);
 				sortedPairs = sortByFarthest.call(this, pairs);
 				char = sortedPairs[0];
 
