@@ -53,6 +53,8 @@
 
 		this.perf.start();
 
+		this.perf.start();
+
 		for (var i = 0, length = list.length; i < length; i++) {
 			var symbol = list[i],
 				existingChar = findSuitableChar(pairs, symbol),
