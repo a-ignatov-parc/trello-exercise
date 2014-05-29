@@ -1,5 +1,9 @@
 # Trello Coding Challenge
 
+[![Build Status](https://travis-ci.org/a-ignatov-parc/trello-exercise.svg?branch=master)](https://travis-ci.org/a-ignatov-parc/trello-exercise)
+
+---
+
 ### Hooray!
 
 To apply for this position, you'll need to complete a small (hopefully fun) coding challenge.  
