@@ -3,6 +3,7 @@
 		if (typeof(window.Perf) === 'function') {
 			this.perf = new window.Perf();
 		}
+
 		this.string = string;
 		this.underscores = false;
 		this.collection = null;
@@ -11,15 +12,23 @@
 		this.prepare();
 
 		if (!manual) {
-			console.log('Processing string: ' + this.string);
+			if (window) {
+				document.body.innerHTML += 'Processing string:<br />' + this.string.replace(/(.{80})/g, '$1<br />') + '<br />';
+			} else {
+				console.log('Processing string:\n'.info + this.string.replace(/(.{80})/g, '$1\n').data);
+			}
 
 			while(this.hasNext()) {
 				this.next();
 			}
 			this.updateResult();
 
-			console.log('Processed result: ' + this.result);
-			console.log('-----');
+			if (window) {
+				document.body.innerHTML += 'Processed result: ' + this.result + '<br />';
+				document.body.innerHTML += '-----<br /><br />';
+			} else {
+				console.log('Processed result: '.info + this.result.verbose);
+			}
 		}
 	};
 
@@ -30,14 +39,19 @@
 			}
 
 			var char = this.pairs[0],
+				list = [],
 				positions;
 
 			if (char) {
 				positions = [char.positions[0], char.positions[char.positions.length - 1]];
-				this.chars.push(this.chars[positions[1]]);
-				this.chars.splice(positions[1], 1);
-				this.chars.splice(positions[0], 1);
-				// console.log(char, positions, this.chars.join(''));
+
+				for (var i = 0, length = this.chars.length; i < length; i++) {
+					if (i !== positions[0] && i !== positions[1]) {
+						list[list.length] = this.chars[i];
+					}
+				}
+				list[list.length] = this.chars[positions[1]];
+				this.chars = list;
 			} else {
 				sliceUnderscore.call(this);
 			}
@@ -70,12 +84,16 @@
 	};
 
 	function sliceUnderscore() {
+		var list = [];
+
 		for (var i = 0, length = this.chars.length; i < length; i++) {
 			if (this.chars[i] === '_') {
-				this.chars.splice(i, length - i);
 				break;
+			} else {
+				list[list.length] = this.chars[i];
 			}
 		}
+		this.chars = list;
 		this.underscores = false;
 		return this.chars;
 	}
@@ -117,7 +135,11 @@
 		this.pairs.sort(sortByFarthest);
 
 		if (this.perf) {
-			console.log('Pairs created in: ' + this.perf.end() + 'ms');
+			if (window) {
+				document.body.innerHTML += this.pairs.length + ' pairs created in ' + this.perf.end() + 'ms<br />';
+			} else {
+				console.log(this.pairs.length + ' pairs created in ' + this.perf.end() + 'ms');
+			}
 		}
 		return this.pairs;
 	}
@@ -169,5 +191,9 @@
 		return false;
 	}
 
-	window.Parser = Parser;
-})(window);
+	if (window) {
+		window.Parser = Parser;
+	} else {
+		module.exports = Parser;
+	}
+})(typeof(window) === 'object' && window);

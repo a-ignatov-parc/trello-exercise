@@ -1,6 +1,7 @@
 {
 	"indent": 4,
 	"boss": true,
+	"node": true,
 	"undef": true,
 	"curly": true,
 	"forin": true,
@@ -12,10 +13,7 @@
 	"camelcase": true,
 	"quotmark": "single",
 	"globals": {
-		"define": true,
-		"requirejs": true,
 		"test": true,
-		"QUnit": true,
 		"start": true,
 		"stop": true,
 		"ok": true,
