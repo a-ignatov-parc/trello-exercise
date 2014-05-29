@@ -7,16 +7,16 @@ test('Testing Parser on example #1', function() {
 			'dfgh_idca',
 			'fgh_icad',
 			'fgh'
-		],
-		count = 0;
+		];
 
 	equal(parser.string, string, 'Parser string property should be equal to passed string');
 	equal(parser.string, parser.result, 'In the beginning Parser string property should be equal to result property');
 
 	while(parser.hasNext()) {
 		parser.next();
-		equal(parser.updateResult(), expectedResults[count], 'Step #' + (++count) + ' should be equalt to expected value');
+		equal(parser.updateResult(), expectedResults[parser.iteration - 1], 'Step #' + parser.iteration + ' should be equal to expected value');
 	}
+	equal(parser.iteration, expectedResults.length, 'Runned steps should be equal to expected results list');
 });
 
 test('Testing Parser on example #2', function() {
@@ -28,16 +28,16 @@ test('Testing Parser on example #2', function() {
 			'aaccfgeb',
 			'ccfgeba',
 			'fgebac'
-		],
-		count = 0;
+		];
 
 	equal(parser.string, string, 'Parser string property should be equal to passed string');
 	equal(parser.string, parser.result, 'In the beginning Parser string property should be equal to result property');
 
 	while(parser.hasNext()) {
 		parser.next();
-		equal(parser.updateResult(), expectedResults[count], 'Step #' + (++count) + ' should be equalt to expected value');
+		equal(parser.updateResult(), expectedResults[parser.iteration - 1], 'Step #' + parser.iteration + ' should be equal to expected value');
 	}
+	equal(parser.iteration, expectedResults.length, 'Runned steps should be equal to expected results list');
 });
 
 test('Testing Parser on example #3', function() {
@@ -49,16 +49,16 @@ test('Testing Parser on example #3', function() {
 			'_bd_a',
 			'bda_',
 			'bda'
-		],
-		count = 0;
+		];
 
 	equal(parser.string, string, 'Parser string property should be equal to passed string');
 	equal(parser.string, parser.result, 'In the beginning Parser string property should be equal to result property');
 
 	while(parser.hasNext()) {
 		parser.next();
-		equal(parser.updateResult(), expectedResults[count], 'Step #' + (++count) + ' should be equalt to expected value');
+		equal(parser.updateResult(), expectedResults[parser.iteration - 1], 'Step #' + parser.iteration + ' should be equal to expected value');
 	}
+	equal(parser.iteration, expectedResults.length, 'Runned steps should be equal to expected results list');
 });
 
 test('Testing Parser on example #4', function() {
@@ -122,14 +122,14 @@ test('Testing Parser on example #4', function() {
 			'rjainbow_sfjqdtvmhlyxgpcz',
 			'rainbow_sfqdtvmhlyxgpczj',
 			'rainbow'
-		],
-		count = 0;
+		];
 
 	equal(parser.string, string, 'Parser string property should be equal to passed string');
 	equal(parser.string, parser.result, 'In the beginning Parser string property should be equal to result property');
 
 	while(parser.hasNext()) {
 		parser.next();
-		equal(parser.updateResult(), expectedResults[count], 'Step #' + (++count) + ' should be equalt to expected value');
+		equal(parser.updateResult(), expectedResults[parser.iteration - 1], 'Step #' + parser.iteration + ' should be equal to expected value');
 	}
+	equal(parser.iteration, expectedResults.length, 'Runned steps should be equal to expected results list');
 });

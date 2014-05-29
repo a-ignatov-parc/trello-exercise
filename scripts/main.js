@@ -1,9 +1,10 @@
 (function(window) {
 	var Parser = function(string, manual) {
-		if (typeof(window.Perf) === 'function') {
+		/*if (typeof(window.Perf) === 'function') {
 			this.perf = new window.Perf();
-		}
+		}*/
 		this.string = string;
+		this.underscores = false;
 		this.collection = null;
 		this.iteration = 0;
 		this.pairs = null;
@@ -18,30 +19,30 @@
 			this.updateResult();
 
 			console.log('Processed result: ' + this.result);
+			console.log('-----');
 		}
 	};
 
 	Parser.prototype = {
 		next: function() {
-			var char,
-				positions;
-
-			if (!this.iteration && this.pairs != null) {
-				char = this.pairs[0];
-			} else {
-				char = createPairs.call(this)[0];
+			if (this.pairs == null) {
+				createPairs.call(this);
 			}
+
+			var char = this.pairs[0],
+				positions;
 
 			if (char) {
 				positions = [char.positions[0], char.positions[char.positions.length - 1]];
 				this.chars.push(this.chars[positions[1]]);
 				this.chars.splice(positions[1], 1);
 				this.chars.splice(positions[0], 1);
-				this.iteration++;
 				// console.log(char, positions, this.chars.join(''));
 			} else {
 				sliceUnderscore.call(this);
 			}
+			this.iteration++;
+			createPairs.call(this);
 			return char;
 		},
 
@@ -49,7 +50,7 @@
 			if (this.pairs == null) {
 				createPairs.call(this);
 			}
-			return !!this.pairs[0];
+			return !!this.pairs[0] || this.underscores;
 		},
 
 		updateResult: function() {
@@ -58,7 +59,8 @@
 
 		prepare: function() {
 			this.result = this.string;
-			this.chars = this.result.split('');
+			this.chars = this.string.split('');
+			this.underscores = this.string.indexOf('_') >= 0;
 		},
 
 		reset: function() {
@@ -74,6 +76,7 @@
 				break;
 			}
 		}
+		this.underscores = false;
 		return this.chars;
 	}
 
