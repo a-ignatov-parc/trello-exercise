@@ -1,0 +1,27 @@
+{
+	"name": "trello-exercise",
+	"description": "Sandbox manager for require.js allows user to run multiple apps without scope intersection issues",
+	"version": "0.1.0",
+	"author": {
+		"name": "Anton Ignatov",
+		"web": "https://github.com/a-ignatov-parc"
+	},
+	"url": "https://github.com/a-ignatov-parc/trello-exercise",
+	"bugs": "https://github.com/a-ignatov-parc/trello-exercise/issues",
+	"main": "./scripts/main.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/a-ignatov-parc/trello-exercise.git"
+	},
+	"scripts": {
+		"test": "grunt travis --verbose"
+	},
+	"devDependencies": {
+		"grunt": "~0.4.0",
+		"grunt-cli": "~0.1.0",
+		"grunt-contrib-jshint": "~0.10.0",
+		"grunt-contrib-qunit": "~0.4.0"
+	},
+	"testPath": "tests/",
+	"srcPath": "scripts/"
+}
