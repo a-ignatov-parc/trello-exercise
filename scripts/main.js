@@ -70,7 +70,7 @@
 	function sliceUnderscore() {
 		for (var i = 0, length = this.chars.length; i < length; i++) {
 			if (this.chars[i] === '_') {
-				this.chars.splice(i, length - (i + 1));
+				this.chars.splice(i, length - i);
 				break;
 			}
 		}
