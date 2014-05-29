@@ -1,8 +1,8 @@
 (function(window) {
 	var Parser = function(string, manual) {
-		/*if (typeof(window.Perf) === 'function') {
+		if (typeof(window.Perf) === 'function') {
 			this.perf = new window.Perf();
-		}*/
+		}
 		this.string = string;
 		this.underscores = false;
 		this.collection = null;
@@ -91,8 +91,7 @@
 		for (var i = 0, length = this.chars.length; i < length; i++) {
 			var symbol = this.chars[i],
 				existingChar = findCharBySymbol(this.pairs, symbol),
-				hasInnerPairs = checkInnerPairs(this.pairs, existingChar, existingChar ? existingChar.positions[0] : this.collection[symbol], i),
-				newChar;
+				hasInnerPairs = checkInnerPairs(this.pairs, this.collection, existingChar, existingChar ? existingChar.positions[0] : this.collection[symbol], i);
 
 			if (hasInnerPairs && existingChar) {
 				existingChar.sealed = true;
@@ -101,13 +100,12 @@
 			if (!existingChar && this.collection[symbol] == null || hasInnerPairs) {
 				this.collection[symbol] = i;
 			} else if (!existingChar && this.collection[symbol] != null) {
-				this.pairs.push(newChar = {
+				this.pairs[this.pairs.length] = updateDistance({
 					distance: 0,
 					symbol: symbol,
 					positions: [this.collection[symbol], i],
 					sealed: false
 				});
-				updateDistance(newChar);
 				this.collection[symbol] = null;
 			} else {
 				existingChar.positions.push(i);
@@ -131,6 +129,7 @@
 
 	function updateDistance(char) {
 		char.distance = char.positions[char.positions.length - 1] - char.positions[0];
+		return char;
 	}
 
 	function findCharBySymbol(list, symbol) {
@@ -141,17 +140,29 @@
 		}
 	}
 
-	function checkInnerPairs(list, char, start, end) {
+	function checkInnerPairs(list, collection, char, start, end) {
 		if (char == null && (start == null || end == null) || char != null && char.positions.length < 1) {
 			return false;
 		}
 
-		for (var i = 0, length = list.length, item; i < length; i++) {
-			item = list[i];
+		for (var i = list.length - 1; i >= 0; i--) {
+			var item = list[i];
 
-			if (item !== char && item.positions[0] > start) {
-				if (item.positions[2] != null && item.positions[2] < end || item.positions[1] < end) {
-					return true;
+			if (item !== char) {
+				if (item.positions[0] > start) {
+					if (collection[item.symbol] != null && collection[item.symbol] < end || item.positions[2] != null && item.positions[2] < end || item.positions[1] < end) {
+						return true;
+					}
+				} else if (item.positions[1] > start) {
+					if (collection[item.symbol] != null && collection[item.symbol] < end || item.positions[2] != null && item.positions[2] < end) {
+						return true;
+					}
+				} else if (item.positions[2] != null && item.positions[2] > start) {
+					if (collection[item.symbol] != null && collection[item.symbol] < end) {
+						return true;
+					}
+				} else {
+					return false;
 				}
 			}
 		}
