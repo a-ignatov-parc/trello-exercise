@@ -9,7 +9,7 @@
 		this.collection = null;
 		this.iteration = 0;
 		this.pairs = null;
-		this.longestPairChar = null
+		this.longestPairChar = null;
 		this.prepare();
 
 		if (!manual) {
@@ -130,11 +130,11 @@
 				this.pairs[this.pairs.length] = existingChar;
 				this.collection[symbol] = null;
 			} else {
-				existingChar.positions.push(i);
+				existingChar.positions[existingChar.positions.length] = i;
 				updateDistance(existingChar);
 			}
 
-			if (existingChar && longestPair == null || existingChar && this.pairs[longestPair].distance < existingChar.distance) {
+			if (longestPair == null && existingChar || existingChar && this.pairs[longestPair].distance < existingChar.distance) {
 				longestPair = this.pairs.length - 1;
 			}
 		}
