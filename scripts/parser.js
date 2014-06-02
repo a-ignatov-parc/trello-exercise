@@ -138,9 +138,6 @@
 				longestPair = this.pairs.length - 1;
 			}
 		}
-
-		// Sorting created pairs by distance.
-		// this.pairs.sort(sortByFarthest);
 		this.longestPairChar = this.pairs[longestPair];
 
 		if (this.perf) {
@@ -151,11 +148,6 @@
 			}
 		}
 		return this.pairs;
-	}
-
-	function sortByFarthest(a, b, distance) {
-		distance = b.distance - a.distance;
-		return distance + (!distance ? a.positions[0] - b.positions[0] : 0);
 	}
 
 	function updateDistance(char) {
