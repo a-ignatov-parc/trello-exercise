@@ -9,6 +9,7 @@
 		this.collection = null;
 		this.iteration = 0;
 		this.pairs = null;
+		this.longestPairChar = null
 		this.prepare();
 
 		if (!manual) {
@@ -38,7 +39,7 @@
 				createPairs.call(this);
 			}
 
-			var char = this.pairs[0],
+			var char = this.longestPairChar,
 				list = [],
 				positions;
 
@@ -64,7 +65,7 @@
 			if (this.pairs == null) {
 				createPairs.call(this);
 			}
-			return !!this.pairs[0] || this.underscores;
+			return !!this.longestPairChar || this.underscores;
 		},
 
 		updateResult: function() {
@@ -99,6 +100,8 @@
 	}
 
 	function createPairs() {
+		var longestPair = 0;
+
 		this.reset();
 
 		if (this.perf) {
@@ -124,15 +127,24 @@
 					positions: [this.collection[symbol], i],
 					sealed: false
 				});
+
+				if (longestPair < this.pairs[this.pairs.length - 1].distance) {
+					longestPair = this.pairs[this.pairs.length - 1].distance;
+				}
 				this.collection[symbol] = null;
 			} else {
 				existingChar.positions.push(i);
 				updateDistance(existingChar);
+
+				if (longestPair < existingChar.distance) {
+					longestPair = existingChar.distance;
+				}
 			}
 		}
 
 		// Sorting created pairs by distance.
-		this.pairs.sort(sortByFarthest);
+		// this.pairs.sort(sortByFarthest);
+		this.longestPairChar = this.pairs[longestPair];
 
 		if (this.perf) {
 			if (window) {
