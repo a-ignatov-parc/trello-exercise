@@ -100,7 +100,8 @@
 	}
 
 	function createPairs() {
-		var longestPair = null;
+		var longestPair = null,
+			lastChars = {};
 
 		this.reset();
 
@@ -111,11 +112,11 @@
 		// Creating symbol pairs.
 		for (var i = 0, length = this.chars.length; i < length; i++) {
 			var symbol = this.chars[i],
-				existingChar = findCharBySymbol(this.pairs, symbol),
+				existingChar = lastChars[symbol],
 				hasInnerPairs = checkInnerPairs(this.pairs, this.collection, existingChar, existingChar ? existingChar.positions[0] : this.collection[symbol], i);
 
 			if (hasInnerPairs && existingChar) {
-				existingChar.sealed = true;
+				lastChars[symbol] = null;
 			}
 
 			if (!existingChar && this.collection[symbol] == null || hasInnerPairs) {
@@ -124,14 +125,17 @@
 				existingChar = updateDistance({
 					distance: 0,
 					symbol: symbol,
-					positions: [this.collection[symbol], i],
-					sealed: false
+					positions: [this.collection[symbol], i]
 				});
-				this.pairs[this.pairs.length] = existingChar;
+				this.pairs[this.pairs.length] = lastChars[symbol] = existingChar;
 				this.collection[symbol] = null;
 			} else {
 				existingChar.positions[existingChar.positions.length] = i;
 				updateDistance(existingChar);
+
+				if (existingChar.positions.length === 3) {
+					lastChars[symbol] = null;
+				}
 			}
 
 			if (longestPair == null && existingChar || existingChar && this.pairs[longestPair].distance < existingChar.distance) {
@@ -147,20 +151,13 @@
 				console.log(this.pairs.length + ' pairs created in ' + this.perf.end() + 'ms');
 			}
 		}
+		lastChars = null;
 		return this.pairs;
 	}
 
 	function updateDistance(char) {
 		char.distance = char.positions[char.positions.length - 1] - char.positions[0];
 		return char;
-	}
-
-	function findCharBySymbol(list, symbol) {
-		for (var i = 0, length = list.length; i < length; i++) {
-			if (list[i].symbol === symbol && list[i].positions.length < 3 && !list[i].sealed) {
-				return list[i];
-			}
-		}
 	}
 
 	function checkInnerPairs(list, collection, char, start, end) {
