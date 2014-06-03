@@ -6,7 +6,6 @@
 
 		this.string = string;
 		this.underscores = false;
-		this.collection = null;
 		this.iteration = 0;
 		this.pairs = null;
 		this.longestPairChar = null;
@@ -79,7 +78,6 @@
 		},
 
 		reset: function() {
-			this.collection = {};
 			this.pairs = [];
 		}
 	};
@@ -101,6 +99,7 @@
 
 	function createPairs() {
 		var longestPair = null,
+			singleSymbols = {},
 			lastChars = {};
 
 		this.reset();
@@ -113,22 +112,22 @@
 		for (var i = 0, length = this.chars.length; i < length; i++) {
 			var symbol = this.chars[i],
 				existingChar = lastChars[symbol],
-				hasInnerPairs = checkInnerPairs(this.pairs, this.collection, existingChar, existingChar ? existingChar.positions[0] : this.collection[symbol], i);
+				hasInnerPairs = checkInnerPairs(this.pairs, singleSymbols, existingChar, existingChar ? existingChar.positions[0] : singleSymbols[symbol], i);
 
 			if (hasInnerPairs && existingChar) {
 				lastChars[symbol] = null;
 			}
 
-			if (!existingChar && this.collection[symbol] == null || hasInnerPairs) {
-				this.collection[symbol] = i;
-			} else if (!existingChar && this.collection[symbol] != null) {
+			if (!existingChar && singleSymbols[symbol] == null || hasInnerPairs) {
+				singleSymbols[symbol] = i;
+			} else if (!existingChar && singleSymbols[symbol] != null) {
 				existingChar = updateDistance({
 					distance: 0,
 					symbol: symbol,
-					positions: [this.collection[symbol], i]
+					positions: [singleSymbols[symbol], i]
 				});
 				this.pairs[this.pairs.length] = lastChars[symbol] = existingChar;
-				this.collection[symbol] = null;
+				singleSymbols[symbol] = null;
 			} else {
 				existingChar.positions[existingChar.positions.length] = i;
 				updateDistance(existingChar);
@@ -152,6 +151,7 @@
 			}
 		}
 		lastChars = null;
+		singleSymbols = null;
 		return this.pairs;
 	}
 
@@ -160,7 +160,7 @@
 		return char;
 	}
 
-	function checkInnerPairs(list, collection, char, start, end) {
+	function checkInnerPairs(list, singleSymbols, char, start, end) {
 		if (char == null && (start == null || end == null) || char != null && char.positions.length < 1) {
 			return false;
 		}
@@ -170,15 +170,15 @@
 
 			if (item !== char) {
 				if (item.positions[0] > start) {
-					if (collection[item.symbol] != null && collection[item.symbol] < end || item.positions[2] != null && item.positions[2] < end || item.positions[1] < end) {
+					if (singleSymbols[item.symbol] != null && singleSymbols[item.symbol] < end || item.positions[2] != null && item.positions[2] < end || item.positions[1] < end) {
 						return true;
 					}
 				} else if (item.positions[1] > start) {
-					if (collection[item.symbol] != null && collection[item.symbol] < end || item.positions[2] != null && item.positions[2] < end) {
+					if (singleSymbols[item.symbol] != null && singleSymbols[item.symbol] < end || item.positions[2] != null && item.positions[2] < end) {
 						return true;
 					}
 				} else if (item.positions[2] != null && item.positions[2] > start) {
-					if (collection[item.symbol] != null && collection[item.symbol] < end) {
+					if (singleSymbols[item.symbol] != null && singleSymbols[item.symbol] < end) {
 						return true;
 					}
 				} else {
