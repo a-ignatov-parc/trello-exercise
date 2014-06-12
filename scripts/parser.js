@@ -167,9 +167,7 @@
 
 			if (item !== char) {
 				if (item.positions[0] > start) {
-					if (singleSymbols[item.symbol] != null && singleSymbols[item.symbol] < end || item.positions[2] != null && item.positions[2] < end || item.positions[1] < end) {
-						return true;
-					}
+					return true;
 				} else if (item.positions[1] > start) {
 					if (singleSymbols[item.symbol] != null && singleSymbols[item.symbol] < end || item.positions[2] != null && item.positions[2] < end) {
 						return true;
