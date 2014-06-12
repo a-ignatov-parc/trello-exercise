@@ -131,10 +131,7 @@
 			} else {
 				existingChar.positions[existingChar.positions.length] = i;
 				updateDistance(existingChar);
-
-				if (existingChar.positions.length === 3) {
-					lastChars[symbol] = null;
-				}
+				lastChars[symbol] = null;
 			}
 
 			if (longestPair == null && existingChar || existingChar && this.pairs[longestPair].distance < existingChar.distance) {
@@ -161,7 +158,7 @@
 	}
 
 	function checkInnerPairs(list, singleSymbols, char, start, end) {
-		if (char == null && (start == null || end == null) || char != null && char.positions.length < 1) {
+		if (char == null && (start == null || end == null)) {
 			return false;
 		}
 
