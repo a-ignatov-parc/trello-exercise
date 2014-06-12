@@ -6,9 +6,9 @@
 
 		this.string = string;
 		this.underscores = false;
-		this.collection = null;
 		this.iteration = 0;
 		this.pairs = null;
+		this.longestPairChar = null;
 		this.prepare();
 
 		if (!manual) {
@@ -38,7 +38,7 @@
 				createPairs.call(this);
 			}
 
-			var char = this.pairs[0],
+			var char = this.longestPairChar,
 				list = [],
 				positions;
 
@@ -64,7 +64,7 @@
 			if (this.pairs == null) {
 				createPairs.call(this);
 			}
-			return !!this.pairs[0] || this.underscores;
+			return !!this.longestPairChar || this.underscores;
 		},
 
 		updateResult: function() {
@@ -78,7 +78,6 @@
 		},
 
 		reset: function() {
-			this.collection = {};
 			this.pairs = [];
 		}
 	};
@@ -99,6 +98,10 @@
 	}
 
 	function createPairs() {
+		var longestPair = null,
+			singleSymbols = {},
+			lastChars = {};
+
 		this.reset();
 
 		if (this.perf) {
@@ -108,31 +111,34 @@
 		// Creating symbol pairs.
 		for (var i = 0, length = this.chars.length; i < length; i++) {
 			var symbol = this.chars[i],
-				existingChar = findCharBySymbol(this.pairs, symbol),
-				hasInnerPairs = checkInnerPairs(this.pairs, this.collection, existingChar, existingChar ? existingChar.positions[0] : this.collection[symbol], i);
+				existingChar = lastChars[symbol],
+				hasInnerPairs = checkInnerPairs(this.pairs, singleSymbols, existingChar, existingChar ? existingChar.positions[0] : singleSymbols[symbol], i);
 
 			if (hasInnerPairs && existingChar) {
-				existingChar.sealed = true;
+				lastChars[symbol] = null;
 			}
 
-			if (!existingChar && this.collection[symbol] == null || hasInnerPairs) {
-				this.collection[symbol] = i;
-			} else if (!existingChar && this.collection[symbol] != null) {
-				this.pairs[this.pairs.length] = updateDistance({
+			if (!existingChar && singleSymbols[symbol] == null || hasInnerPairs) {
+				singleSymbols[symbol] = i;
+			} else if (!existingChar && singleSymbols[symbol] != null) {
+				existingChar = updateDistance({
 					distance: 0,
 					symbol: symbol,
-					positions: [this.collection[symbol], i],
-					sealed: false
+					positions: [singleSymbols[symbol], i]
 				});
-				this.collection[symbol] = null;
+				this.pairs[this.pairs.length] = lastChars[symbol] = existingChar;
+				singleSymbols[symbol] = null;
 			} else {
-				existingChar.positions.push(i);
+				existingChar.positions[existingChar.positions.length] = i;
 				updateDistance(existingChar);
+				lastChars[symbol] = null;
+			}
+
+			if (longestPair == null && existingChar || existingChar && this.pairs[longestPair].distance < existingChar.distance) {
+				longestPair = this.pairs.length - 1;
 			}
 		}
-
-		// Sorting created pairs by distance.
-		this.pairs.sort(sortByFarthest);
+		this.longestPairChar = this.pairs[longestPair];
 
 		if (this.perf) {
 			if (window) {
@@ -141,12 +147,9 @@
 				console.log(this.pairs.length + ' pairs created in ' + this.perf.end() + 'ms');
 			}
 		}
+		lastChars = null;
+		singleSymbols = null;
 		return this.pairs;
-	}
-
-	function sortByFarthest(a, b, distance) {
-		distance = b.distance - a.distance;
-		return distance + (!distance ? a.positions[0] - b.positions[0] : 0);
 	}
 
 	function updateDistance(char) {
@@ -154,16 +157,8 @@
 		return char;
 	}
 
-	function findCharBySymbol(list, symbol) {
-		for (var i = 0, length = list.length; i < length; i++) {
-			if (list[i].symbol === symbol && list[i].positions.length < 3 && !list[i].sealed) {
-				return list[i];
-			}
-		}
-	}
-
-	function checkInnerPairs(list, collection, char, start, end) {
-		if (char == null && (start == null || end == null) || char != null && char.positions.length < 1) {
+	function checkInnerPairs(list, singleSymbols, char, start, end) {
+		if (char == null && (start == null || end == null)) {
 			return false;
 		}
 
@@ -172,15 +167,13 @@
 
 			if (item !== char) {
 				if (item.positions[0] > start) {
-					if (collection[item.symbol] != null && collection[item.symbol] < end || item.positions[2] != null && item.positions[2] < end || item.positions[1] < end) {
-						return true;
-					}
+					return true;
 				} else if (item.positions[1] > start) {
-					if (collection[item.symbol] != null && collection[item.symbol] < end || item.positions[2] != null && item.positions[2] < end) {
+					if (singleSymbols[item.symbol] != null && singleSymbols[item.symbol] < end || item.positions[2] != null && item.positions[2] < end) {
 						return true;
 					}
 				} else if (item.positions[2] != null && item.positions[2] > start) {
-					if (collection[item.symbol] != null && collection[item.symbol] < end) {
+					if (singleSymbols[item.symbol] != null && singleSymbols[item.symbol] < end) {
 						return true;
 					}
 				} else {
