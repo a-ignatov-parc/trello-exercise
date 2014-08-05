@@ -7,10 +7,9 @@ module.exports = function(str) {
 
 	console.log('Processing string:\n'.info + str.replace(/(.{80})/g, '$1\n').data);
 
-	// for (;hasNext = iterator.hasNext();) {
-	// 	iterator.next(hasNext);
-	// }
-	iterator.next();
+	for (;hasNext = iterator.hasNext();) {
+		iterator.next(hasNext);
+	}
 	result = iterator.toString();
 
 	console.log('Processed result: '.info + result.verbose);

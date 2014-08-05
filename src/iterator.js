@@ -25,6 +25,7 @@ Iterator.prototype = {
 
 					if (item.letter === letter) {
 						item.positions[item.positions.length] = i;
+						calculateDistance(item);
 						foundPair = true;
 					}
 
@@ -40,7 +41,10 @@ Iterator.prototype = {
 						if (longestPair && longestPair.distance < item.distance || !longestPair) {
 							longestPair = pairs[longestPairIndex = item.positions[0]];
 						}
-						pendingPairsQueue.splice(index, 1);
+
+						if (item.letter !== letter || item.positions.length > 2) {
+							pendingPairsQueue.splice(index, 1);
+						}
 					}
 				}
 				pendingPairsQueue[pendingPairsQueue.length] = symbol;
