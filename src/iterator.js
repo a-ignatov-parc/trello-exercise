@@ -56,7 +56,7 @@ Iterator.prototype = {
 
 			pair = pairs[longestPairIndex];
 
-			console.log('\nLongestPair'.data, pair);
+			// console.log('\nLongestPair'.data, pair);
 
 			if (pair) {
 				this._source.splice(pair.positions[pair.positions.length - 1], 1);
@@ -71,7 +71,7 @@ Iterator.prototype = {
 				}
 			}
 		}
-		console.log('\nUpdated source: '.info + this.toString().data);
+		// console.log('\nUpdated source: '.info + this.toString().data);
 	},
 
 	hasNext: function() {
