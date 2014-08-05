@@ -3,53 +3,71 @@ var Iterator = function(str) {
 }
 
 Iterator.prototype = {
-	// init: function() {
-		
-	// },
+	next: function(hasNext) {
+		var nextStep = hasNext != null ? hasNext : this.hasNext(),
+			pendingPairsQueue = [],
+			longestPairIndex = 0,
+			pairs = {},
+			pair;
 
-	next: function() {
-		var nextStep = this.hasNext(),
-			pendingSymbols = [],
-			pairs = {};
-
-		if (nextStep === 'pairs') {
+		if (nextStep === 'pair') {
 			for (var i = 0, length = this._source.length; i < length; i++) {
 				var letter = this._source[i],
 					symbol = {
 						letter: letter,
 						positions: [i]
 					},
-					splice = false;
+					longestPair = pairs[longestPairIndex],
+					foundPair = false;
 
-				// if (!pairs[letter]) {
-				// 	pairs[letter] = {};
-				// }
+				for (var index = pendingPairsQueue.length - 1; index >= 0; index--) {
+					var item = pendingPairsQueue[index];
 
-				// pendingSymbols[pendingSymbols.length] = {
-				// 	letter: letter,
-				// 	positions: [i]
-				// };
+					if (item.letter === letter) {
+						item.positions[item.positions.length] = i;
+						foundPair = true;
+					}
 
-				pendingSymbols.unshift(symbol);
+					if (item.positions.length > 1) {
+						pairs[item.positions[0]] = item;
+					}
 
-				for (var index = pendingSymbols.length; index; index--) {
-					if (pendingSymbols[index].letter === letter) {
-						pendingSymbols[index].positions[pendingSymbols[index].positions.length] = i;
-						splice = true;
-					} else if (splice) {
-						pendingSymbols.splice(index, 1);
+					if (foundPair && (item.letter !== letter || item.letter === letter && item.positions.length > 1)) {
+						if (!item.distance) {
+							calculateDistance(item);
+						}
+
+						if (longestPair && longestPair.distance < item.distance || !longestPair) {
+							longestPair = pairs[longestPairIndex = item.positions[0]];
+						}
+						pendingPairsQueue.splice(index, 1);
 					}
 				}
-				// pendingSymbols[pendingSymbols.length];
+				pendingPairsQueue[pendingPairsQueue.length] = symbol;
+
+				// console.log('pendingPairsQueue', pendingPairsQueue);
+				// console.log('pairs', pairs);
+				// console.log('---');
+			}
+
+			pair = pairs[longestPairIndex];
+
+			console.log('\nLongestPair'.data, pair);
+
+			if (pair) {
+				this._source.splice(pair.positions[pair.positions.length - 1], 1);
+				this._source.splice(pair.positions[0], 1);
+				this._source[this._source.length] = pair.letter;
 			}
 		} else if (nextStep === 'underscore') {
 			for (var i = 0, length = this._source.length; i < length; i++) {
 				if (this._source[i] === '_') {
-					this._source.length = i + 1;
+					this._source.length = i;
 					break;
 				}
 			}
 		}
+		console.log('\nUpdated source: '.info + this.toString().data);
 	},
 
 	hasNext: function() {
@@ -74,6 +92,11 @@ Iterator.prototype = {
 	toString: function() {
 		return this._source.join('');
 	}
+}
+
+function calculateDistance(symbol) {
+	symbol.distance = symbol.positions[symbol.positions.length - 1] - symbol.positions[0];
+	return symbol;
 }
 
 module.exports = Iterator;
