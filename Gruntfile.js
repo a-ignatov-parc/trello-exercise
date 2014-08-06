@@ -1,8 +1,14 @@
 var pkg = require('./package.json'),
 	gruntConfig = {
 		pkg: pkg,
+
+		srcDir: '<%= pkg.config.srcDir %>',
+		testDir: '<%= pkg.config.testDir %>',
+		buildDir: '<%= pkg.config.buildDir %>',
+		packagesDir: '<%= pkg.config.packagesDir %>',
+
 		qunit: {
-			all: [pkg.testPath + '**/*.html']
+			all: ['<%= testDir %>/**/*.html']
 		},
 		jshint: {
 			grunt: {
@@ -12,15 +18,22 @@ var pkg = require('./package.json'),
 				}
 			},
 			src: {
-				src: pkg.srcPath + '**/*.js',
+				src: '<%= srcDir %>/**/*.js',
 				options: {
-					jshintrc: pkg.srcPath + '.jshintrc'
+					jshintrc: '<%= srcDir %>/.jshintrc'
 				}
 			},
 			tests: {
-				src: pkg.testPath + '*.js',
+				src: '<%= testDir %>/*.js',
 				options: {
-					jshintrc: pkg.testPath + '.jshintrc'
+					jshintrc: '<%= testDir %>/.jshintrc'
+				}
+			}
+		},
+		browserify: {
+			dist: {
+				files: {
+					'<%= buildDir %>/iterator.js': '<%= srcDir %>/export.js'
 				}
 			}
 		}
@@ -30,9 +43,10 @@ module.exports = function(grunt) {
 	grunt.initConfig(gruntConfig);
 	grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-browserify');
 
 	// Регистрируем таски
-	grunt.registerTask('default', ['jshint', 'qunit']);
-	grunt.registerTask('tests', 'qunit');
-	grunt.registerTask('travis', ['jshint', 'qunit']);
+	grunt.registerTask('default', ['jshint', 'browserify', 'qunit']);
+	grunt.registerTask('tests', ['browserify', 'qunit']);
+	grunt.registerTask('travis', ['jshint', 'browserify', 'qunit']);
 };

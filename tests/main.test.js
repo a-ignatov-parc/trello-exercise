@@ -1,69 +1,72 @@
 test('Testing Parser on example #1', function() {
 	var string = 'daccadfghd_i',
-		parser = new window.Parser(string, true),
+		parser = new window.Iterator(string),
 		expectedResults = [
 			'daccafgh_id',
 			'daafgh_idc',
 			'dfgh_idca',
 			'fgh_icad',
 			'fgh'
-		];
+		],
+		iteration = 0;
 
-	equal(parser.string, string, 'Parser string property should be equal to passed string');
-	equal(parser.string, parser.result, 'In the beginning Parser string property should be equal to result property');
+	equal(parser.toString(), string, 'Parser string property should be equal to passed string');
 
 	while(parser.hasNext()) {
+		++iteration;
 		parser.next();
-		equal(parser.updateResult(), expectedResults[parser.iteration - 1], 'Step #' + parser.iteration + ' should be equal to expected value');
+		equal(parser.toString(), expectedResults[iteration - 1], 'Step #' + iteration + ' should be equal to expected value');
 	}
-	equal(parser.iteration, expectedResults.length, 'Runned steps should be equal to expected results list');
+	equal(iteration, expectedResults.length, 'Runned steps should be equal to expected results list');
 });
 
 test('Testing Parser on example #2', function() {
 	var string = 'abacbcbefge',
-		parser = new window.Parser(string, true),
+		parser = new window.Iterator(string),
 		expectedResults = [
 			'aaccbefgeb',
 			'aaccbfgbe',
 			'aaccfgeb',
 			'ccfgeba',
 			'fgebac'
-		];
+		],
+		iteration = 0;
 
-	equal(parser.string, string, 'Parser string property should be equal to passed string');
-	equal(parser.string, parser.result, 'In the beginning Parser string property should be equal to result property');
+	equal(parser.toString(), string, 'Parser string property should be equal to passed string');
 
 	while(parser.hasNext()) {
+		++iteration;
 		parser.next();
-		equal(parser.updateResult(), expectedResults[parser.iteration - 1], 'Step #' + parser.iteration + ' should be equal to expected value');
+		equal(parser.toString(), expectedResults[iteration - 1], 'Step #' + iteration + ' should be equal to expected value');
 	}
-	equal(parser.iteration, expectedResults.length, 'Runned steps should be equal to expected results list');
+	equal(iteration, expectedResults.length, 'Runned steps should be equal to expected results list');
 });
 
 test('Testing Parser on example #3', function() {
 	var string = '_a_abda_',
-		parser = new window.Parser(string, true),
+		parser = new window.Iterator(string),
 		expectedResults = [
 			'__abd_a',
 			'_abda_',
 			'_bd_a',
 			'bda_',
 			'bda'
-		];
+		],
+		iteration = 0;
 
-	equal(parser.string, string, 'Parser string property should be equal to passed string');
-	equal(parser.string, parser.result, 'In the beginning Parser string property should be equal to result property');
+	equal(parser.toString(), string, 'Parser string property should be equal to passed string');
 
 	while(parser.hasNext()) {
+		++iteration;
 		parser.next();
-		equal(parser.updateResult(), expectedResults[parser.iteration - 1], 'Step #' + parser.iteration + ' should be equal to expected value');
+		equal(parser.toString(), expectedResults[iteration - 1], 'Step #' + iteration + ' should be equal to expected value');
 	}
-	equal(parser.iteration, expectedResults.length, 'Runned steps should be equal to expected results list');
+	equal(iteration, expectedResults.length, 'Runned steps should be equal to expected results list');
 });
 
 test('Testing Parser on example #4', function() {
 	var string = 'ttvmswxjzdgzqxotby_lslonwqaipchgqdo_yz_fqdagixyrobdjtnl_jqzpptzfcdcjjcpjjnnvopmh',
-		parser = new window.Parser(string, true),
+		parser = new window.Iterator(string),
 		expectedResults = [
 			'ttvmswxjzdgzqxotby_lslonwqaipchgqdo_z_fqdagixrobdjtnl_jqzpptzfcdcjjcpjjnnvopmhy',
 			'ttvmswxjzdgzqxotby_lslonwqaipchgqdo_z_fqagixrobjtnl_jqzpptzfcdcjjcpjjnnvopmhyd',
@@ -122,14 +125,15 @@ test('Testing Parser on example #4', function() {
 			'rjainbow_sfjqdtvmhlyxgpcz',
 			'rainbow_sfqdtvmhlyxgpczj',
 			'rainbow'
-		];
+		],
+		iteration = 0;
 
-	equal(parser.string, string, 'Parser string property should be equal to passed string');
-	equal(parser.string, parser.result, 'In the beginning Parser string property should be equal to result property');
+	equal(parser.toString(), string, 'Parser string property should be equal to passed string');
 
 	while(parser.hasNext()) {
+		++iteration;
 		parser.next();
-		equal(parser.updateResult(), expectedResults[parser.iteration - 1], 'Step #' + parser.iteration + ' should be equal to expected value');
+		equal(parser.toString(), expectedResults[iteration - 1], 'Step #' + iteration + ' should be equal to expected value');
 	}
-	equal(parser.iteration, expectedResults.length, 'Runned steps should be equal to expected results list');
+	equal(iteration, expectedResults.length, 'Runned steps should be equal to expected results list');
 });
