@@ -1,7 +1,7 @@
 {
 	"indent": 4,
-	"boss": true,
 	"node": true,
+	"boss": true,
 	"undef": true,
 	"curly": true,
 	"forin": true,
@@ -10,7 +10,7 @@
 	"eqnull": true,
 	"browser": true,
 	"noempty": true,
-	"latedef": true,
+	"latedef": "nofunc",
 	"camelcase": true,
 	"quotmark": "single"
 }

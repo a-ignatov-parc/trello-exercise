@@ -1,3 +1,8 @@
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+if (typeof(window) !== 'undefined') {
+	window.Parser = require('./parser');
+}
+},{"./parser":3}],2:[function(require,module,exports){
 var Iterator = function(str) {
 	this._source = ('' + str).split('');
 };
@@ -107,3 +112,27 @@ function calculateDistance(symbol) {
 }
 
 module.exports = Iterator;
+},{}],3:[function(require,module,exports){
+var Iterator = require('./iterator');
+
+module.exports = function(str) {
+	var iterator = new Iterator(str),
+		hasNext,
+		result;
+
+	console.log('Processing string:\n'.info + str.replace(/(.{80})/g, '$1\n').data);
+	console.time('Parsed in');
+
+	for (;hasNext = iterator.hasNext();) {
+		iterator.next(hasNext);
+	}
+
+	console.timeEnd('Parsed in');
+
+	result = iterator.toString();
+
+	console.log('Processed result: '.info + result.verbose);
+
+	return result;
+};
+},{"./iterator":2}]},{},[1]);

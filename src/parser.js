@@ -19,4 +19,4 @@ module.exports = function(str) {
 	console.log('Processed result: '.info + result.verbose);
 
 	return result;
-}
+};
