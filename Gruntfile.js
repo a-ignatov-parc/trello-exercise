@@ -34,9 +34,6 @@ var pkg = require('./package.json'),
 			dist: {
 				files: {
 					'<%= buildDir %>/iterator.js': '<%= srcDir %>/export.js'
-				},
-				options: {
-					debug: true
 				}
 			}
 		}
