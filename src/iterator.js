@@ -4,13 +4,14 @@ var Iterator = function(str) {
 
 Iterator.prototype = {
 	next: function(hasNext) {
-		var nextStep = hasNext != null ? hasNext : this.hasNext(),
-			pendingPairsQueue = [],
-			longestPairIndex = 0,
-			pairs = {},
-			pair;
+		var nextStep = hasNext != null ? hasNext : this.hasNext();
 
 		if (nextStep === 'pair') {
+			var pendingPairsQueue = [],
+				longestPairIndex = 0,
+				pairs = {},
+				pair;
+
 			for (var i = 0, length = this._source.length; i < length; i++) {
 				var letter = this._source[i],
 					symbol = {
