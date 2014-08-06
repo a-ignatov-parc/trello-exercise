@@ -33,7 +33,7 @@ var pkg = require('./package.json'),
 		browserify: {
 			dist: {
 				files: {
-					'<%= buildDir %>/parser.js': '<%= srcDir %>/export.js'
+					'<%= buildDir %>/iterator.js': '<%= srcDir %>/export.js'
 				},
 				options: {
 					debug: true

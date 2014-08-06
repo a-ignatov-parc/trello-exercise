@@ -30,7 +30,7 @@
 	"config": {
 		"srcDir": "src",
 		"testDir": "tests",
-		"buildDir": "browser",
+		"buildDir": "build",
 		"packagesDir": "bower_components"
 	}
 }
